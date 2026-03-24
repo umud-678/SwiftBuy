@@ -15,3 +15,4 @@ Bu qovluq SwiftBuy B2B sifariş platformasının frontend prototipidir.
 Sadəcə `index.html` faylını brauzerdə açın.
 
 Qeyd: Bu prototip backend-sizdir və yalnız UI axınını göstərir.
+# swith220
