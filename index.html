@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SwiftBuy | B2B Order Platform</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --surface: #ffffff;
+      --surface-2: #f2f6ff;
+      --text: #1f2937;
+      --muted: #5f6b7a;
+      --primary: #2f6fed;
+      --accent: #16b79e;
+      --border: #e3e8f2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #f8faff 0%, var(--bg) 100%);
+    }
+    .container { max-width: 1060px; margin: 0 auto; padding: 24px 16px 40px; }
+    .hero {
+      background: linear-gradient(135deg, #2f6fed 0%, #5d8ef1 55%, #16b79e 100%);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 12px 32px rgba(47, 111, 237, 0.2);
+    }
+    .hero h1 { margin: 0 0 8px; font-size: 36px; }
+    .hero p { margin: 0; max-width: 760px; line-height: 1.6; }
+    .grid {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .card h3 { margin: 0 0 10px; font-size: 18px; }
+    .card p, .card li { color: var(--muted); line-height: 1.55; }
+    .steps { margin: 0; padding-left: 18px; }
+    .cta-row { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 10px;
+      padding: 11px 14px;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-ghost { border: 1px solid #a9bff5; color: #ffffff; }
+    .highlight {
+      background: var(--surface-2);
+      border: 1px dashed #c5d4f7;
+      padding: 12px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+    .footer { margin-top: 14px; color: #7b8794; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="hero">
+      <h1>SwiftBuy</h1>
+      <p>Distribyutor və mağaza arasındakı sifariş prosesini WhatsApp/telefon modelindən çıxarıb rəqəmsal, sürətli və izlənə bilən axına çevirən B2B platforma.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="./phase-1-login.html">Platformaya daxil ol</a>
+        <a class="btn btn-ghost" href="./phase-3-product-catalog.html">Məhsul axınına bax</a>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h3>Problem nədir?</h3>
+        <p>Mağazalar sifarişi telefon və mesajla verdiyi üçün gecikmə, qiymət/stok qarışıqlığı və insan səhvləri yaranır.</p>
+      </article>
+      <article class="card">
+        <h3>SwiftBuy bunu necə həll edir?</h3>
+        <p>Mağaza real vaxt stok və qiyməti görür, sifarişini paneldən verir, sifariş avtomatik distribyutor panelinə düşür.</p>
+      </article>
+      <article class="card">
+        <h3>İş axını 3 addımda</h3>
+        <ol class="steps">
+          <li>Mağaza daxil olur və məhsul seçir.</li>
+          <li>Sifariş sistemdə formalaşır və göndərilir.</li>
+          <li>Distribyutor statusu idarə edir və çatdırmanı tamamlayır.</li>
+        </ol>
+      </article>
+      <article class="card">
+        <h3>Kimlər üçün?</h3>
+        <p><strong>Primary:</strong> mağaza sahibləri. <strong>Secondary:</strong> distribyutor komandası.</p>
+        <div class="highlight">Məqsəd: daha sürətli sifariş, daha şəffaf məlumat, daha az manual əməliyyat.</div>
+      </article>
+    </section>
+
+    <p class="footer">SwiftBuy Product Story | v2 UI</p>
+  </main>
+</body>
+</html>

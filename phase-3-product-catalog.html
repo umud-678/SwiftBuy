@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SwiftBuy | Product Catalog</title>
+  <style>
+    :root { --bg:#f5f7fb; --surface:#ffffff; --surface2:#f2f6ff; --text:#1f2937; --muted:#6b7280; --primary:#2f6fed; --accent:#16b79e; --border:#e3e8f2; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: Inter, "Segoe UI", Arial, sans-serif; background:linear-gradient(180deg, #f8faff 0%, var(--bg) 100%); color:var(--text); }
+    .app { display:grid; grid-template-columns:250px 1fr; min-height:100vh; padding-bottom:84px; }
+    .sidebar { background:#ffffff; border-right:1px solid var(--border); padding:18px 14px; }
+    .logo { font-weight:800; font-size:24px; margin-bottom:18px; }
+    .nav a { display:block; color:#4b5563; text-decoration:none; padding:10px; border-radius:10px; margin-bottom:6px; transition:.2s; }
+    .nav a:hover, .nav a.active { background:#eef4ff; color:#2f6fed; transform:translateX(2px); }
+    .container { max-width: 1100px; margin: 0 auto; padding: 18px; }
+    .top {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand { font-weight: 800; color: #fff; }
+    .nav { display: flex; gap: 8px; flex-wrap: wrap; }
+    .nav a {
+      text-decoration: none;
+      color: #2f6fed;
+      font-weight: 700;
+      border: 1px solid #cfdaf3;
+      border-radius: 8px;
+      padding: 8px 10px;
+      background: #f5f8ff;
+      font-size: 14px;
+    }
+    .search {
+      width: 100%;
+      border: 1px solid #d7deea;
+      color: var(--text);
+      background: #f9fbff;
+      border-radius: 10px;
+      padding: 11px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    .intro {
+      background: #f5f8ff;
+      border: 1px solid #dbe4f7;
+      color: #4b5563;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .tab {
+      border: 1px solid #d5deee;
+      background: #ffffff;
+      color: #4b5563;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .tab.active { background: #eef4ff; border-color: #9eb9f3; color: #2f6fed; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+    }
+    .card h3 { margin: 0 0 6px; font-size: 16px; }
+    .meta { color: var(--muted); margin-bottom: 8px; font-size: 13px; }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .status {
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 4px 8px;
+    }
+    .in { background: #e2f8f1; color: #0a6e5c; }
+    .low { background: #fff3da; color: #8c5c00; }
+    .out { background: #ffe5e5; color: #a41f1f; }
+    .price { font-weight: 800; color: #2f6fed; }
+    .add {
+      margin-top: 10px;
+      width: 100%;
+      border: 0;
+      border-radius: 8px;
+      padding: 10px;
+      background: linear-gradient(135deg, #2f6fed, #5d8ef1);
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .add:disabled { background: #9db8b2; cursor: not-allowed; }
+    .cart {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #ffffff;
+      border-top: 1px solid #e3e8f2;
+      box-shadow: 0 -6px 20px rgba(9, 44, 36, 0.08);
+      padding: 10px 16px;
+    }
+    .cart-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .checkout {
+      border: 0;
+      background: var(--accent);
+      color: #06342a;
+      font-weight: 800;
+      border-radius: 9px;
+      padding: 11px 14px;
+      cursor: pointer;
+    }
+    .empty {
+      background: #ffffff;
+      border: 1px dashed #cfdaf3;
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+      color: var(--muted);
+    }
+    @keyframes fade { from {opacity:0; transform:translateY(4px);} to {opacity:1; transform:none;} }
+    .card { animation:fade .25s ease both; }
+    .checkout, .add, .tab { transition: transform .15s ease, opacity .15s ease; }
+    .checkout:hover, .add:hover, .tab:hover { transform: translateY(-1px); }
+    @media (max-width: 880px) { .app { grid-template-columns:1fr; } .sidebar { border-right:0; border-bottom:1px solid var(--border);} }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="logo">SwiftBuy</div>
+      <nav class="nav">
+        <a href="./phase-2-store-dashboard.html">Dashboard</a>
+        <a class="active" href="./phase-3-product-catalog.html">Məhsul kataloqu</a>
+        <a href="./phase-4-distributor-panel.html">Distribyutor paneli</a>
+        <a href="./phase-1-login.html">Çıxış</a>
+      </nav>
+    </aside>
+    <main class="container">
+      <header class="top">
+        <div class="brand">Məhsul Kataloqu</div>
+      </header>
+      <div class="intro">Məhsulları axtarın, kateqoriya ilə filter edin və səbətə əlavə edərək sifarişi tamamlayın.</div>
+      <input id="search" class="search" placeholder="Məhsul axtar..." />
+      <div class="tabs">
+        <button class="tab active" data-category="Hamısı">Hamısı</button>
+        <button class="tab" data-category="İçki">İçki</button>
+        <button class="tab" data-category="Qida">Qida</button>
+        <button class="tab" data-category="Təmizlik">Təmizlik</button>
+        <button class="tab" data-category="Digər">Digər</button>
+      </div>
+      <section id="products" class="grid"></section>
+    </main>
+  </div>
+
+  <footer class="cart">
+    <div class="cart-inner">
+      <div><strong id="cartCount">0 məhsul</strong> | Toplam: <strong id="cartTotal">0.00 AZN</strong></div>
+      <button id="checkoutBtn" class="checkout">Sifarişi Tamamla</button>
+    </div>
+  </footer>
+
+  <script>
+    const products = [
+      { name: "Coca-Cola 1L", category: "İçki", price: 1.80, stock: "IN STOCK" },
+      { name: "Lay's Chips 150g", category: "Qida", price: 2.20, stock: "IN STOCK" },
+      { name: "Ariel Washing Powder 3kg", category: "Təmizlik", price: 12.50, stock: "LOW" },
+      { name: "Nestle Water 6-pack", category: "İçki", price: 3.60, stock: "IN STOCK" },
+      { name: "Lipton Tea 100-pack", category: "Qida", price: 4.90, stock: "OUT" },
+      { name: "Pringles Original 165g", category: "Qida", price: 3.80, stock: "IN STOCK" }
+    ];
+
+    let activeCategory = "Hamısı";
+    let query = "";
+    let cartCount = 0;
+    let cartTotal = 0;
+
+    const productsEl = document.getElementById("products");
+    const cartCountEl = document.getElementById("cartCount");
+    const cartTotalEl = document.getElementById("cartTotal");
+    const searchInput = document.getElementById("search");
+    const tabs = [...document.querySelectorAll(".tab")];
+    const checkoutBtn = document.getElementById("checkoutBtn");
+
+    function stockLabel(stock) {
+      if (stock === "IN STOCK") return "MÖVCUDDUR";
+      if (stock === "LOW") return "AZ QALIB";
+      return "TÜKƏNİB";
+    }
+
+    function stockClass(stock) {
+      if (stock === "IN STOCK") return "in";
+      if (stock === "LOW") return "low";
+      return "out";
+    }
+
+    function renderProducts() {
+      const filtered = products.filter(p => {
+        const byCategory = activeCategory === "Hamısı" || p.category === activeCategory;
+        const bySearch = p.name.toLowerCase().includes(query.toLowerCase());
+        return byCategory && bySearch;
+      });
+
+      if (filtered.length === 0) {
+        productsEl.innerHTML = '<div class="empty">Axtarışa uyğun məhsul tapılmadı.</div>';
+        return;
+      }
+
+      productsEl.innerHTML = filtered.map(p => {
+        const isDisabled = p.stock === "OUT";
+        return `
+          <article class="card">
+            <h3>${p.name}</h3>
+            <div class="meta">${p.category}</div>
+            <div class="row">
+              <span class="status ${stockClass(p.stock)}">${stockLabel(p.stock)}</span>
+              <span class="price">${p.price.toFixed(2)} AZN</span>
+            </div>
+            <button class="add" ${isDisabled ? "disabled" : ""} data-name="${p.name}">Səbətə əlavə et</button>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function updateCart(price) {
+      cartCount += 1;
+      cartTotal += price;
+      cartCountEl.textContent = `${cartCount} məhsul`;
+      cartTotalEl.textContent = `${cartTotal.toFixed(2)} AZN`;
+    }
+
+    searchInput.addEventListener("input", (e) => {
+      query = e.target.value;
+      renderProducts();
+    });
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        activeCategory = tab.dataset.category;
+        renderProducts();
+      });
+    });
+
+    productsEl.addEventListener("click", (e) => {
+      const btn = e.target.closest(".add");
+      if (!btn || btn.disabled) return;
+      const product = products.find(p => p.name === btn.dataset.name);
+      updateCart(product.price);
+      btn.textContent = "Əlavə olundu";
+      setTimeout(() => { btn.textContent = "Səbətə əlavə et"; }, 700);
+    });
+
+    checkoutBtn.addEventListener("click", () => {
+      if (cartCount === 0) {
+        alert("Səbət boşdur. Zəhmət olmasa məhsul əlavə edin.");
+        return;
+      }
+      alert(`Sifariş qəbul edildi: ${cartCount} məhsul, ${cartTotal.toFixed(2)} AZN`);
+      cartCount = 0;
+      cartTotal = 0;
+      cartCountEl.textContent = "0 məhsul";
+      cartTotalEl.textContent = "0.00 AZN";
+    });
+
+    renderProducts();
+  </script>
+</body>
+</html>

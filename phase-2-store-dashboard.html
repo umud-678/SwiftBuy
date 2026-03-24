@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SwiftBuy | Store Dashboard</title>
+  <style>
+    :root { --bg:#f5f7fb; --surface:#ffffff; --surface2:#f2f6ff; --text:#1f2937; --muted:#6b7280; --primary:#2f6fed; --accent:#16b79e; --border:#e3e8f2; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:Inter, "Segoe UI", Arial, sans-serif; color:var(--text); background:linear-gradient(180deg, #f8faff 0%, var(--bg) 100%); }
+    .app { display:grid; grid-template-columns: 250px 1fr; min-height:100vh; }
+    .sidebar { background:#ffffff; border-right:1px solid var(--border); padding:18px 14px; }
+    .logo { font-weight:800; font-size:24px; margin-bottom:18px; }
+    .nav a { display:block; color:#4b5563; text-decoration:none; padding:10px; border-radius:10px; margin-bottom:6px; transition:.2s; }
+    .nav a:hover, .nav a.active { background:#eef4ff; color:#2f6fed; transform:translateX(2px); }
+    .main { padding:18px; }
+    .topbar { display:flex; justify-content:space-between; gap:8px; align-items:center; margin-bottom:14px; }
+    .meta { color:var(--muted); font-size:14px; }
+    .logout { color:#2f6fed; text-decoration:none; border:1px solid #cfdaf3; padding:8px 10px; border-radius:8px; }
+    .welcome, .intro, .card, .table-wrap { background:var(--surface); border:1px solid var(--border); border-radius:14px; }
+    .welcome { padding:14px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; gap:8px; }
+    h1 { margin:0 0 4px; font-size:24px; }
+    .btn { text-decoration:none; background:linear-gradient(135deg, #2f6fed, #5d8ef1); color:#fff; font-weight:700; border-radius:10px; padding:10px 12px; }
+    .intro { padding:11px 12px; margin-bottom:10px; color:#4b5563; background:#f5f8ff; }
+    .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; margin-bottom:10px; }
+    .card { padding:12px; transition:.2s ease; animation:fade .35s ease both; }
+    .card:hover { transform:translateY(-2px); border-color:#c7d7f8; }
+    .card p { margin:0 0 6px; color:var(--muted); font-size:13px; } .card h3 { margin:0; color:#1f2937; font-size:24px; }
+    .table-wrap { overflow:auto; animation:fade .4s ease both; }
+    table { width:100%; border-collapse:collapse; min-width:640px; }
+    th, td { padding:11px; text-align:left; border-bottom:1px solid #e8edf5; font-size:14px; }
+    th { color:#667085; background:#f8fafc; }
+    .status { font-size:12px; font-weight:700; border-radius:999px; padding:4px 8px; display:inline-block; }
+    .delivered { background:#e8fbf5; color:#0f766e; } .transit { background:#fff7e8; color:#b45309; }
+    @keyframes fade { from { opacity:0; transform:translateY(4px);} to {opacity:1; transform:none;} }
+    @media (max-width: 880px) { .app { grid-template-columns:1fr; } .sidebar { border-right:0; border-bottom:1px solid var(--border);} }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="logo">SwiftBuy</div>
+      <nav class="nav">
+        <a class="active" href="./phase-2-store-dashboard.html">Dashboard</a>
+        <a href="./phase-3-product-catalog.html">Məhsul kataloqu</a>
+        <a href="./phase-4-distributor-panel.html">Distribyutor paneli</a>
+      </nav>
+    </aside>
+    <main class="main">
+      <div class="topbar">
+        <div class="meta">Əli Market (Bakı, Nərimanov)</div>
+        <a href="./phase-1-login.html" class="logout">Çıxış</a>
+      </div>
+      <section class="welcome">
+        <div><h1>Salam, Əli Market!</h1><div class="meta">Sifariş, çatdırılma və xərcləri bir yerdə izləyin.</div></div>
+        <a class="btn" href="./phase-3-product-catalog.html">Yeni sifariş</a>
+      </section>
+      <section class="intro">Bu ekran mağaza üçün gündəlik idarəetmə panelidir: aktiv sifarişlər, çatdırılma statusu və aylıq total.</section>
+      <section class="cards">
+        <article class="card"><p>Aktiv sifarişlər</p><h3>3</h3></article>
+        <article class="card"><p>Gözləyən çatdırılmalar</p><h3>1</h3></article>
+        <article class="card"><p>Bu ayın cəmi</p><h3>169.50 AZN</h3></article>
+      </section>
+      <section class="table-wrap">
+        <table>
+          <thead><tr><th>Order ID</th><th>Tarix</th><th>Məhsul sayı</th><th>Status</th><th>Məbləğ</th></tr></thead>
+          <tbody>
+            <tr><td>SB-1042</td><td>18 Mar</td><td>6</td><td><span class="status delivered">Çatdırıldı</span></td><td>47.20 AZN</td></tr>
+            <tr><td>SB-1041</td><td>17 Mar</td><td>3</td><td><span class="status transit">Yoldadır</span></td><td>28.90 AZN</td></tr>
+            <tr><td>SB-1040</td><td>15 Mar</td><td>8</td><td><span class="status delivered">Çatdırıldı</span></td><td>93.40 AZN</td></tr>
+            <tr><td>SB-1038</td><td>12 Mar</td><td>4</td><td><span class="status delivered">Çatdırıldı</span></td><td>31.70 AZN</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

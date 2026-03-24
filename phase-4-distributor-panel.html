@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SwiftBuy | Distributor Panel</title>
+  <style>
+    :root { --bg:#f5f7fb; --surface:#ffffff; --text:#1f2937; --muted:#6b7280; --border:#e3e8f2; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: Inter, "Segoe UI", Arial, sans-serif; color:var(--text); background:linear-gradient(180deg, #f8faff 0%, var(--bg) 100%); }
+    .app { display:grid; grid-template-columns:250px 1fr; min-height:100vh; }
+    .sidebar { background:#ffffff; border-right:1px solid var(--border); padding:18px 14px; }
+    .logo { font-weight:800; font-size:24px; margin-bottom:18px; }
+    .nav a { display:block; color:#4b5563; text-decoration:none; padding:10px; border-radius:10px; margin-bottom:6px; transition:.2s; }
+    .nav a:hover, .nav a.active { background:#eef4ff; color:#2f6fed; transform:translateX(2px); }
+    .container { max-width:1120px; margin:0 auto; padding:18px; }
+    .header, .card, .table-wrap, .intro { background:var(--surface); border:1px solid var(--border); border-radius:12px; }
+    .header { padding:12px 14px; display:flex; justify-content:space-between; gap:8px; align-items:center; margin-bottom:12px; }
+    .title h1 { margin:0; font-size:20px; color:#1f2937; } .title p { margin:4px 0 0; color:var(--muted); font-size:14px; }
+    .logout { text-decoration:none; color:#2f6fed; font-weight:700; border:1px solid #cfdaf3; border-radius:8px; padding:8px 10px; background:#f5f8ff; }
+    .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; margin-bottom:12px; }
+    .card { padding:12px; animation:fade .3s ease both; }
+    .card p { margin:0 0 6px; color:var(--muted); font-size:13px; } .card h3 { margin:0; color:#1f2937; font-size:24px; }
+    .intro { color:#4b5563; padding:10px 12px; margin-bottom:12px; background:#f5f8ff; }
+    .table-wrap { overflow:auto; animation:fade .35s ease both; }
+    table { width:100%; border-collapse:collapse; min-width:860px; }
+    th, td { text-align:left; padding:11px; border-bottom:1px solid #e8edf5; font-size:14px; }
+    th { background:#f8fafc; color:#667085; }
+    .status { border:1px solid #d5deee; border-radius:8px; padding:6px 8px; background:#ffffff; color:#425166; font-weight:600; font-size:12px; }
+    .status-new { background:#edf4ff; color:#1d4ed8; border-color:#bcd3ff; }
+    .status-progress { background:#fff7e8; color:#b45309; border-color:#f7d9a7; }
+    .status-sent { background:#e8fbf5; color:#0f766e; border-color:#b9f1e1; }
+    .actions button { border:0; background:linear-gradient(135deg,#2f6fed,#5d8ef1); color:#fff; padding:8px 10px; border-radius:8px; font-weight:700; font-size:12px; cursor:pointer; transition:transform .15s ease; }
+    .actions button:hover { transform:translateY(-1px); }
+    .actions button.saved { background:#16b79e; }
+    @keyframes fade { from { opacity:0; transform:translateY(4px);} to { opacity:1; transform:none; } }
+    @media (max-width:880px) { .app { grid-template-columns:1fr; } .sidebar { border-right:0; border-bottom:1px solid var(--border); } }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="logo">SwiftBuy</div>
+      <nav class="nav">
+        <a href="./phase-2-store-dashboard.html">Dashboard</a>
+        <a href="./phase-3-product-catalog.html">Məhsul kataloqu</a>
+        <a class="active" href="./phase-4-distributor-panel.html">Distribyutor paneli</a>
+        <a href="./phase-1-login.html">Çıxış</a>
+      </nav>
+    </aside>
+    <main class="container">
+      <header class="header">
+        <div class="title"><h1>AzərFood Distribution LLC</h1><p>SwiftBuy Distributor Panel</p></div>
+        <a href="./phase-1-login.html" class="logout">Çıxış</a>
+      </header>
+      <section class="cards">
+        <article class="card"><p>Today's orders</p><h3>12</h3></article>
+        <article class="card"><p>Pending</p><h3>5</h3></article>
+        <article class="card"><p>Completed</p><h3>7</h3></article>
+        <article class="card"><p>Total revenue</p><h3>1,242.70 AZN</h3></article>
+      </section>
+      <section class="intro">Bu paneldə mağazalardan gələn sifarişlər görünür. Hər sifariş üçün statusu yeniləyib əməliyyatı yadda saxlaya bilərsiniz.</section>
+      <section class="table-wrap">
+        <table>
+          <thead><tr><th>Order ID</th><th>Store name</th><th>Items count</th><th>Total AZN</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="orderRows">
+            <tr><td>SB-1051</td><td>Əli Market</td><td>4</td><td>36.80</td><td><select class="status"><option>Yeni</option><option selected>İşlənir</option><option>Göndərildi</option></select></td><td class="actions"><button>Yadda saxla</button></td></tr>
+            <tr><td>SB-1050</td><td>Nərgiz Mini Market</td><td>7</td><td>82.40</td><td><select class="status"><option selected>Yeni</option><option>İşlənir</option><option>Göndərildi</option></select></td><td class="actions"><button>Yadda saxla</button></td></tr>
+            <tr><td>SB-1049</td><td>Sahil Store</td><td>3</td><td>24.60</td><td><select class="status"><option>Yeni</option><option selected>İşlənir</option><option>Göndərildi</option></select></td><td class="actions"><button>Yadda saxla</button></td></tr>
+            <tr><td>SB-1048</td><td>Kənd Ticarət</td><td>6</td><td>64.90</td><td><select class="status"><option>Yeni</option><option>İşlənir</option><option selected>Göndərildi</option></select></td><td class="actions"><button>Yadda saxla</button></td></tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+  <script>
+    const statusSelects = [...document.querySelectorAll(".status")];
+    const saveButtons = [...document.querySelectorAll(".actions button")];
+    function paintStatus(select) {
+      select.classList.remove("status-new", "status-progress", "status-sent");
+      if (select.value === "Yeni") select.classList.add("status-new");
+      if (select.value === "İşlənir") select.classList.add("status-progress");
+      if (select.value === "Göndərildi") select.classList.add("status-sent");
+    }
+    statusSelects.forEach((select) => { paintStatus(select); select.addEventListener("change", () => paintStatus(select)); });
+    saveButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        button.classList.add("saved");
+        button.textContent = "Yadda saxlanıldı";
+        setTimeout(() => { button.classList.remove("saved"); button.textContent = "Yadda saxla"; }, 900);
+      });
+    });
+  </script>
+</body>
+</html>
